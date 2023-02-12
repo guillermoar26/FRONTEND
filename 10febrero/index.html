@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./style.css" />
+    <title>Ricky y Morty API</title>
+    <script lang="javascript">
+        var pagina = 1;
+        function fetchChars(page) {
+            fetch(`https://rickandmortyapi.com/api/character?page=${page}`)
+            .then(data => data.json())
+            .then(chars => {
+                var container = document.getElementById("results");
+                container.innerHTML = "";
+                for (var char of chars.results) {
+                    var div = document.createElement("div");
+                    div.className = "char";
+                    div.innerHTML = `
+                        <img src="${char.image}" />
+                        <h2>${char.name}</h2>
+                    `;
+                    container.appendChild(div);
+                }
+            })
+        }
+
+        function buscarNombre(nombre){
+            fetch(`https://rickandmortyapi.com/api/character/?name=${nombre}`)
+            .then(data => data.json())
+            .then(chars => {
+                var container = document.getElementById("results");
+                container.innerHTML = "";
+                for (var char of chars.results) {
+                    var div = document.createElement("div");
+                    div.className = "char";
+                    div.innerHTML = `
+                        <img src="${char.image}" />
+                        <h2>${char.name}</h2>
+                    `;
+                    container.appendChild(div);
+                }
+            })
+        }
+
+        function buscarPagina(){
+            pagina = parseInt(document.getElementById("pagina").value);
+            if (pagina < 0 || pagina > 42){ window.alert("Pagina invalida"); } 
+            else {
+                fetchChars(pagina);
+            }
+        }
+
+        function siguiente(){
+            if (pagina > 41) { window.alert("Pagina invalida"); } 
+            else {
+                pagina++;
+                fetchChars(pagina);
+            }
+        }
+
+        function anterior(){
+            if (pagina < 1){ window.alert("Pagina invalida"); } 
+            else {
+                pagina--;
+                fetchChars(pagina);
+            }
+        }
+
+
+    </script>
+</head>
+<body onload="fetchChars(1)">
+    <h1 id="title">Ricky and Morty API</h1>
+    <div id="form">
+        <input type="text" id="nombre" name="nombre" placeholder="Nombre del personaje" />
+        <button onclick="buscarNombre(document.getElementById('nombre').value)">Buscar</button>
+
+        <input type="text" id="pagina" name="pagina" placeholder="Numero de pagina" />
+        <button onclick="buscarPagina()">Buscar</button>
+        <button id="anterior" onclick="anterior()">Anterior</button>
+        <button id="siguiente" onclick="siguiente()">Siguiente</button>
+    </div>
+    <div id="results"></div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+body {
+    background-color: aliceblue;
+    color: #727a6d;
+}
+
+button {
+    background-color: #ffffff;
+}
+
+#pelota {
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color:#fabada;
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 0px;
+}

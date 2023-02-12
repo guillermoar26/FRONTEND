@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./style.css"/>
+    <title>Clase 3 de febrero</title>
+    <script lang="javascript">
+        function saluda(){
+            window.alert("Hola");
+        }
+
+        function changeButton2(){
+            var button2 = document.getElementById("Boton2");
+            button2.innerText = "Pulsado";
+            button2.style.backgroundColor= "#ff00aa";
+            button2.style.position = "absolute";
+            button2.style.top = "200px"
+        }
+        
+        function move(){
+            var pelota = document.getElementById("pelota");
+            var top = parseInt(pelota.style.top) || 2;
+            pelota.style.top = (2 + top) + "px";
+            setTimeout(move, 50);
+        }
+
+        document.onkeydown = detectKey;
+        function detectKey(e) {            
+            var posLeft = document.getElementById("pelota").offsetLeft;
+            var posTop = document.getElementById("pelota").offsetTop;
+            e = e || window.event;
+
+            if (e.keyCode == '38' || e.keyCode == '87' ) {
+                // up arrow
+                document.getElementById("pelota").style.marginTop = (posTop - 50) + "px";
+            } else if (e.keyCode == '40' || e.keyCode == '83') {
+                // down arrow
+                document.getElementById("pelota").style.marginTop = (posTop + 50) + "px";
+            } else if (e.keyCode == '37' || e.keyCode == '65') {
+                // left arrow
+                document.getElementById("pelota").style.marginLeft = (posLeft - 50) + "px";
+            } else if (e.keyCode == '39' || e.keyCode == '68') {
+                // right arrow
+                document.getElementById("pelota").style.marginLeft = (posLeft + 50) + "px";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="pelota"></div>
+    <button id="Boton1" onclick="move()">Clickame</button>
+</body>
+</html>
